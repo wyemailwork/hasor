@@ -215,25 +215,6 @@
         </plugins>
     </build>
 
-    <repositories>
-        <repository>
-            <id>snapshots</id>
-            <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-        </repository>
-    </repositories>
-    <pluginRepositories>
-        <pluginRepository>
-            <id>snapshots</id>
-            <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-        </pluginRepository>
-    </pluginRepositories>
-
     <!-- 发布使用的版本库 -->
     <distributionManagement>
         <snapshotRepository>
@@ -249,6 +230,10 @@
             <activation>
                 <activeByDefault>true</activeByDefault>
             </activation>
+            <properties>
+                <profile.active>sonatype-deploy</profile.active>
+                <release.type>Dev</release.type>
+            </properties>
         </profile>
         <profile>
             <id>release</id>
@@ -312,7 +297,7 @@
                             <autoVersionSubmodules>true</autoVersionSubmodules>
                             <useReleaseProfile>false</useReleaseProfile>
                             <releaseProfiles>release</releaseProfiles>
-                            <tagNameFormat>Release.${project.shortname}@{project.version}</tagNameFormat>
+                            <tagNameFormat>${release.type}.${project.shortname}@{project.version}</tagNameFormat>
                             <goals>deploy</goals>
                         </configuration>
                     </plugin>
